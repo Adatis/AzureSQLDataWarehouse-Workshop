@@ -1,0 +1,11 @@
+--SELECT
+--'BEGIN TRY
+--	DROP EXTERNAL TABLE [' + S.Name + '].[' + T.Name + ']
+--END TRY
+--BEGIN CATCH
+--	PRINT ''No Need''
+--END CATCH'
+--FROM
+--    sys.tables AS T
+--INNER JOIN sys.schemas AS S ON S.schema_id = T.schema_id
+--WHERE S.Name = 'ext'
