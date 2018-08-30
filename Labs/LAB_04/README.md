@@ -4,33 +4,11 @@ In this lab you are a Magic Works Consultant. You're responsible for developing 
 
 The connection details you need for this storage account are as follows: 
 ```sql
-Users 1-10:
-Blob Account: magicworksblob
-Blob Key: WR6PLCnUMJ9Hu6Wkt7EUadRLDnoVF3cTabiGm//3FBXXJOSFAPqjrkfqqEW9qT4P2OlsKDcY0iSRUfDWtNhKrA==
+Blob Account: magicadventure
+Container: data
+Full: wasbs://data@magicadventure.blob.core.windows.net
+Blob Key: ZjqKvIDFMTiIFI6MgawacKZTJGy5uW/Tt8AemBdsVKjO6qCGCmnkPfSVEtqDngc5KZbZ49XNhYqVnB6mfqnkdg==
 
-Users 11-20:
-Blob Account: magicworksblob2
-Blob Key: iPKgnuG5oI6sl9lplkTl2v9KGboJthwMNm1BDurW5NkOU1r0qaUSXNlSZxZGCC6PjGqv2mB+8ABMtVcvlVWSgg==
-
-Users 21-30:
-Blob Account: magicworksblob3
-Blob Key: //xPuuJEovTStG3YqxpzlCyyDWcojaf0iK3LuuJxrFWfwVpc8MNJg69sTUitdT/a08/aYoIzYbKD9v7kNYGSaA==
-
-Users 31-40:
-Blob Account: magicworksblob4
-Blob Key: hvLzIESMiRANksNoP4Jv5ZTfsvLKaGkAvAOrf5Cl9RUzx46zktO1wa87ssNQSFwKBLJnz1d3aMVJuuUTsBswWQ==
-
-Users 41-50:
-Blob Account: magicworksblob5
-Blob Key: 7NDJoZdV1459ZB8wUzDEBt/qUZnxzeEBvS+LHH4sZPTVFugMnC12c2as2M1d9FZbKn3EYmOpL2cu7Yb0xjmOpA==
-
-Users 51-60:
-Blob Account: magicworksblob6
-Blob Key: qsgGBy85YqL6//M4BJ8OMCdEGnwS8Soj44W9oi0RcydNMWQNIbQtNi+7NUQ65A3b6mSKZzMPHqQ2WSPDIVda0A==
-
-Users 61-70:
-Blob Account: magicworksblob7
-Blob Key: dpUqFYVTcV8SCVf/sV/qX76sRGpEi/PQVlvdg/xiR8PJALPiYuJXNBn/HLbV4mQ5kX5aAurYVoBXQo4kjNCxGA==
 ```
 
 To view the data you can install Azure storage explorer. You can download this 
@@ -150,7 +128,7 @@ BEGIN TRY
 CREATE DATABASE SCOPED CREDENTIAL AzureStorageCredential
 WITH
     IDENTITY = 'user',
-    SECRET = 'WR6PLCnUMJ9Hu6Wkt7EUadRLDnoVF3cTabiGm//3FBXXJOSFAPqjrkfqqEW9qT4P2OlsKDcY0iSRUfDWtNhKrA=='
+    SECRET = 'ZjqKvIDFMTiIFI6MgawacKZTJGy5uW/Tt8AemBdsVKjO6qCGCmnkPfSVEtqDngc5KZbZ49XNhYqVnB6mfqnkdg=='
 END TRY
 BEGIN CATCH
 	PRINT 'No Need'
@@ -159,7 +137,7 @@ GO
 
 
 BEGIN TRY
-	CREATE EXTERNAL FILE FORMAT TextFile
+	CREATE EXTERNAL FILE FORMAT TextFileQuote
 WITH (
     FORMAT_TYPE = DelimitedText,
     FORMAT_OPTIONS (FIELD_TERMINATOR = ',', STRING_DELIMITER= '"')
@@ -187,18 +165,18 @@ END CATCH
 
 CREATE EXTERNAL DATA SOURCE Blob_product
 WITH (TYPE = HADOOP,
-      LOCATION = 'wasbs://product@magicworksblob.blob.core.windows.net',
+      LOCATION = 'wasbs://data@magicadventure.blob.core.windows.net',
       CREDENTIAL = AzureStorageCredential);
 
 
 CREATE EXTERNAL TABLE Ext.Product(
 	 [ProductID] NVARCHAR(50) ,   [Name] NVARCHAR(500) ,   [ProductNumber] NVARCHAR(500) ,   [MakeFlag] NVARCHAR(500) ,   [FinishedGoodsFlag] NVARCHAR(500) ,   [Color] NVARCHAR(500) ,   [SafetyStockLevel] NVARCHAR(500) ,   [ReorderPoint] NVARCHAR(500) ,   [StandardCost] NVARCHAR(500) ,   [ListPrice] NVARCHAR(500) ,   [Size] NVARCHAR(500) ,   [SizeUnitMeasureCode] NVARCHAR(500) ,   [WeightUnitMeasureCode] NVARCHAR(500) ,   [Weight] NVARCHAR(50) ,   [DaysToManufacture] NVARCHAR(50) ,   [ProductLine] NVARCHAR(500) ,   [Class] NVARCHAR(500) ,   [Style] NVARCHAR(500) ,   [ProductSubcategoryID] NVARCHAR(50) ,   [ProductModelID] NVARCHAR(50) ,   [SellStartDate] NVARCHAR(50) ,   [SellEndDate] NVARCHAR(50) ,   [DiscontinuedDate] NVARCHAR(50) ,   [rowguid] NVARCHAR(500) ,   [ModifiedDate] NVARCHAR(50)
 )
-WITH (LOCATION='./',
+WITH (LOCATION='Production_Product.txt',
       DATA_SOURCE  = Blob_product,
-      FILE_FORMAT  = TextFile,
+      FILE_FORMAT  = TextFileQuote,
       REJECT_TYPE  = VALUE,
-      REJECT_VALUE = 0);
+      REJECT_VALUE = 1);
 
 
 SELECT * FROM Ext.Product

@@ -44,7 +44,7 @@ $CreateTime = Get-Date
 
 
 # ------------ Process all transform scripts ---------- #
-Get-ChildItem "G:\GitHub\MagicWorks\Polybase Generation\SQLToBeDeployed" -Filter *.dsql | 
+Get-ChildItem "G:\GitHubProjects\Adatis\AzureSQLDataWarehouse-Workshop\AzureSQLDataWarehouse-Workshop\MagicWorks\Polybase Generation\SQLToBeDeployed" -Filter *.dsql | 
 Foreach-Object {
     $content = Get-Content $_.FullName  | Out-String
     #$content
@@ -61,5 +61,26 @@ $params = @{
   }
 
   Invoke-Sqlcmd  @params
+
+}
+
+
+Get-ChildItem "G:\GitHub\Labs\BuildAutomation\" -Filter *.sql | 
+Foreach-Object {
+    $content = Get-Content $_.FullName  | Out-String
+    #$content
+    $spm = $content
+    $_.FullName
+
+$params = @{
+    'Database' = $DataWarehouseName
+    'ServerInstance' =  'tcp:magicadventure.database.windows.net'
+        'Username' = $UserName
+        'Password' = $Password
+        'OutputSqlErrors' = $true
+        'Query' = $spm
+    }
+
+    Invoke-Sqlcmd  @params
 
 }

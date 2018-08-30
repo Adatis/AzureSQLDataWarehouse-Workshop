@@ -9,7 +9,7 @@ CREATE MASTER KEY;
 CREATE DATABASE SCOPED CREDENTIAL AzureStorageCredential
 WITH
     IDENTITY = 'user',
-    SECRET = 'WR6PLCnUMJ9Hu6Wkt7EUadRLDnoVF3cTabiGm//3FBXXJOSFAPqjrkfqqEW9qT4P2OlsKDcY0iSRUfDWtNhKrA=='
+    SECRET = 'ZjqKvIDFMTiIFI6MgawacKZTJGy5uW/Tt8AemBdsVKjO6qCGCmnkPfSVEtqDngc5KZbZ49XNhYqVnB6mfqnkdg=='
 ;
 
 -- #######################################################################################################################################
@@ -18,7 +18,7 @@ WITH
 CREATE EXTERNAL FILE FORMAT TextFile
 WITH (
     FORMAT_TYPE = DelimitedText,
-    FORMAT_OPTIONS (FIELD_TERMINATOR = ',')
+    FORMAT_OPTIONS (FIELD_TERMINATOR = ',', STRING_DELIMITER = '"')
 );
 
 -- #######################################################################################################################################

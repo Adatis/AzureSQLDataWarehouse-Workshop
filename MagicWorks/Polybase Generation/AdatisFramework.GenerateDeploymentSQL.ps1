@@ -15,7 +15,7 @@ Remove-Variable * -ErrorAction SilentlyContinue
 
 
 ## ------ Change filepath to existing configuration file ------ ##
-$PowerShellConfigFilePath = 'G:\GitHub\MagicWorks\Polybase Generation\Config.json'
+$PowerShellConfigFilePath = 'G:\GitHubProjects\Adatis\AzureSQLDataWarehouse-Workshop\AzureSQLDataWarehouse-Workshop\MagicWorks\Polybase Generation\Config.json'
 $Config = Get-Content $PowerShellConfigFilePath | ConvertFrom-Json
 
 ## ------ Set by config file ------ ##
@@ -44,8 +44,8 @@ $AzureSubscriptionName = $Config.AzureSubscriptionName
  
 
 # ------- CSV containing export of Adatis metadata ------- # 
-$path = Import-Csv $($MetadataFilePath + 'MagicWorksMetadata.csv')
-#$path = Import-Csv $($MetadataFilePath + 'MagicWorksDWMetadata.csv')
+#$path = Import-Csv $($MetadataFilePath + 'MagicWorksMetadata.csv')
+$path = Import-Csv $($MetadataFilePath + 'MagicWorksDWMetadata.csv')
 
 $CredentialName = 'AzureStorageCredential'
 
@@ -82,13 +82,15 @@ $FileContentExternal =  $FileContentExternal -replace "%COLUMNEXTDDL%", $ColumnD
 $FileContentExternal =  $FileContentExternal -replace "%CREATETIME%", $CreateTime
 $FileContentExternal =  $FileContentExternal -replace "%COLUMNTYPINGS%", $ColumnTypings
 $FileContentExternal =  $FileContentExternal -replace "%BLOBACCOUNT%", $BlobAccountNameName 
-$FileContentExternal =  $FileContentExternal -replace "%CONTAINERNAME%", $EntityName.ToLower() #$EntityNameFull
+$FileContentExternal =  $FileContentExternal -replace "%CONTAINERNAME%", "data" #$EntityName.ToLower() #$EntityNameFull
 $FileContentExternal =  $FileContentExternal -replace "%FILEFORMAT%", $PolybaseFileFormat
 $FileContentExternal =  $FileContentExternal -replace "%CREDENTIALNAME%", $CredentialName
 $FileContentExternal =  $FileContentExternal -replace "%PRIMARYKEY%", $PrimaryKey
 $FileContentExternal =  $FileContentExternal -replace "%LAKEROOT%", $LakeRoot
 $FileContentExternal =  $FileContentExternal -replace "%EXTDATASOURCE%", $ExternalDataSource
+$FileContentExternal =  $FileContentExternal -replace "%FILENAME%", $($item.TableName.Replace(".", "_").Replace("[","").Replace("]","")+".txt")
 #$FileContentExternal
+
 
 
 $FileContentExternal | out-file $($SQLDeploymentPath + 'External.' +  $EntityName + '.dsql')

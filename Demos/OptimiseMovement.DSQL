@@ -1,14 +1,14 @@
 
 --Clean up from previous demo
-IF EXISTS (SELECT * FROM SYSOBJECTS WHERE NAME='SalesOrderHeader')
+IF EXISTS (SELECT * FROM SYSOBJECTS WHERE NAME='SalesOrderHeader' AND xtype <> 'ET')
 BEGIN
 	DROP TABLE dbo.SalesOrderHeader
 END
-IF EXISTS (SELECT * FROM SYSOBJECTS WHERE NAME='Customer')
+IF EXISTS (SELECT * FROM SYSOBJECTS WHERE NAME='Customer' AND xtype <> 'ET')
 BEGIN
 	DROP TABLE dbo.Customer
 END
-IF EXISTS (SELECT * FROM SYSOBJECTS WHERE NAME='SalesOrderDetail')
+IF EXISTS (SELECT * FROM SYSOBJECTS WHERE NAME='SalesOrderDetail' AND xtype <> 'ET')
 BEGIN
 	DROP TABLE dbo.SalesOrderDetail
 END
@@ -49,8 +49,8 @@ SELECT *
 --Query to Review
 EXPLAIN
 SELECT
-	C.[CustomerID],
-	SUM(CAST([LineTotal] as money)) TotalSales
+	C.[CustomerID]
+	,SUM(CAST([LineTotal] as money)) TotalSales
 FROM
 	dbo.Customer C
 	INNER JOIN dbo.SalesOrderHeader SOH ON C.CustomerID = SOH.CustomerID
