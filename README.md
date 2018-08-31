@@ -114,6 +114,10 @@ When to use Azure SQL Data Warehouse?
 - https://www.blue-granite.com/blog/is-azure-sql-data-warehouse-a-good-fit
 
 
+ColumnStore compression monitoring. 
+- https://docs.microsoft.com/en-us/azure/sql-data-warehouse/sql-data-warehouse-memory-optimizations-for-columnstore-compression
+
+
 ### Links mentioned during previous talks. 
 
 - https://docs.microsoft.com/en-us/azure/sql-data-warehouse/resource-classes-for-workload-management

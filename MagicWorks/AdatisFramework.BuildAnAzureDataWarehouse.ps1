@@ -13,7 +13,7 @@
 
 Remove-Variable * -ErrorAction SilentlyContinue
 
-$BlobAccountName = 'magicworksblob7'
+$BlobAccountName = 'magicworksblob1'
 $BlobStorageKey = 'dpUqFYVTcV8SCVf/sV/qX76sRGpEi/PQVlvdg/xiR8PJALPiYuJXNBn/HLbV4mQ5kX5aAurYVoBXQo4kjNCxGA=='
 $DatabaseName= 'Adventureworks'
 $UserNameShort  = 'acl\tpm'
