@@ -95,6 +95,25 @@ A newly-minted Microsoft Data Platform MVP, Simon runs the SQLSurrey PASS Chapte
 
 You can contact Simon here: saw@adatis.co.uk or via [@MrSiWhiteley](https://twitter.com/MrSiWhiteley) on Twitter
 
+### Links mentioned at SQLSaturday Oslo
+Comparing RedShift, Snowflake and Azure SQL Data Warehouse
+- https://db-engines.com/en/system/Microsoft+Azure+SQL+Data+Warehouse%3BSnowflake
+- https://azure.microsoft.com/en-us/blog/azure-sets-new-performance-benchmarks-with-sql-data-warehouse/
+
+Machine Learning and Azure SQL Data Warehouse. 
+- https://docs.microsoft.com/en-us/azure/sql-data-warehouse/sql-data-warehouse-get-started-analyze-with-azure-machine-learning
+- https://docs.microsoft.com/en-us/azure/machine-learning/studio-module-reference/import-from-azure-sql-database
+It might be better to have your data landed in to a data lake or Blob storage. Then you can use Python, R or any service you want. You can however read directly from Azure SQL Data Warehouse, however you will want to use Polybase to export data. 
+
+Security considerations
+- https://docs.microsoft.com/en-us/azure/sql-data-warehouse/sql-data-warehouse-overview-manage-security
+- https://github.com/Huachao/azure-content/blob/master/articles/sql-data-warehouse/sql-data-warehouse-overview-security.md
+ 
+
+When to use Azure SQL Data Warehouse? 
+- https://www.blue-granite.com/blog/is-azure-sql-data-warehouse-a-good-fit
+
+
 ### Links mentioned during previous talks. 
 
 - https://docs.microsoft.com/en-us/azure/sql-data-warehouse/resource-classes-for-workload-management
